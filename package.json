@@ -1,0 +1,32 @@
+{
+  "name": "api-forss",
+  "private": true,
+  "version": "1.0.0",
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-modules --es-module-specifier-resolution=node api/server.js",
+    "dev": "nodemon --exec 'yarn start'"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.15.1",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "moment": "^2.29.3",
+    "pg": "^8.7.3",
+    "react-dom": "^18.1.0",
+    "utf8": "^3.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/react-dom": "^18.0.0",
+    "prisma": "^3.15.2"
+  }
+}

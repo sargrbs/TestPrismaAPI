@@ -1,0 +1,149 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @unique 
+  name String
+  email String @unique
+  password String
+  privilege String
+  created_at DateTime @db.Date @default(now())
+  updated_at DateTime @db.Date @updatedAt
+}
+
+
+
+model Order {
+  id String @unique 
+  nfe String?
+  data_venda DateTime @db.Date
+  previsao_entrega DateTime? @db.Date
+  produto String
+  numero_serie String?
+  valor_total Decimal @db.Decimal(15,2)	
+  nome_cliente String
+  telefone_cliente String?
+  cpf_cliente String
+  protocolo_cotacao String?
+  valor_frete Decimal? @db.Decimal(15,2)	
+  video Boolean?
+  rastreio Boolean?
+  tracking_code String?
+
+  cidade String?
+  produto_extra String?
+  volumes String?
+  cep String?
+  endereco String?
+  bairro String?
+  estado String?
+  complemento String?
+
+  created_at DateTime @db.Date @default(now())
+  updated_at DateTime @db.Date @updatedAt
+
+  marketplace Marketplace @relation(fields: [marketplaceId], references: [id])
+  marketplaceId String
+
+  status Status @relation(fields: [statusId], references: [id])
+  statusId String
+
+  romaneio Romaneio? @relation(fields: [romaneioId], references: [id])
+  romaneioId String?
+  
+  empresas Empresas? @relation(fields: [empresasId], references: [id])
+  empresasId String?
+
+  transportadora Transportadora? @relation(fields: [transportadoraId], references: [id])
+  transportadoraId String?
+
+  nivelAtraso NivelAtraso? @relation(fields: [nivelAtrasoId], references: [id])
+  nivelAtrasoId String?
+  
+  ocorrencias Ocorrencias[]
+}
+
+model Transportadora {
+  id String @unique
+  nome String
+  telefone String
+  nome_contato String
+  link String?
+  created_at DateTime @db.Date @default(now())
+  updated_at DateTime @db.Date @updatedAt
+  
+  romaneio Romaneio[]
+  order Order[]
+}
+
+model Marketplace {
+  id String @unique
+  nome String @unique
+  created_at DateTime @db.Date @default(now())
+  updated_at DateTime @db.Date @updatedAt
+
+  order Order[]
+}
+
+model Status {
+  id String @unique
+  nome String
+  cor String
+  created_at DateTime @db.Date @default(now())
+  updated_at DateTime @db.Date @updatedAt
+
+  order Order[]
+}
+
+model Romaneio {
+  id String @unique
+  data_coleta DateTime @db.Date
+  responsavel_coleta String?
+  qtd_volumes String
+  created_at DateTime @db.Date @default(now())
+  updated_at DateTime @db.Date @updatedAt
+
+  transportadora Transportadora @relation(fields: [transportadoraId], references: [id])
+  transportadoraId String 
+
+  order Order[]
+}
+
+model Ocorrencias {
+  id String @unique
+  descricao String
+  created_at DateTime @db.Date @default(now())
+  updated_at DateTime @db.Date @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id])
+  orderId String
+}
+
+model Empresas {
+  id String @unique
+  razao_social String
+  cnpj String
+
+  created_at DateTime @db.Date @default(now())
+  updated_at DateTime @db.Date @updatedAt
+
+  order Order[]
+}
+
+model NivelAtraso {
+  id String @unique
+  codigo String
+  descricao String
+
+  created_at DateTime @db.Date @default(now())
+  updated_at DateTime @db.Date @updatedAt
+
+  order Order[]
+}
