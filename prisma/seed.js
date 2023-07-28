@@ -8,8 +8,7 @@ import {v4 as uuidv4} from 'uuid'
 async function main() {
     const empresas = await prisma.empresas.createMany({
       data: [
-        {id: uuidv4(), cnpj: '18.841.300/0001-69', razao_social: 'ANA PAULA MARCZAK DE BORBA EIRELI'},
-        {id: uuidv4(), cnpj: '10.220.594/0001-08', razao_social: 'MARCZAK CICLO PEÇAS EIRELI'}
+        {id: uuidv4(), cnpj: '00.000.000/9999-99', razao_social: 'TESTE EIRELI'},
       ]
     })
 
@@ -43,14 +42,12 @@ async function main() {
         data: [
           {id: uuidv4(), nome: 'Sem Transportadora', telefone: '99 99999-9999', nome_contato: 'Contato Indefinida'},
           {id: uuidv4(), nome: 'Fedex', telefone: '99 99999-9999', nome_contato: 'Contato Fedex'},
-          {id: uuidv4(), nome: 'Rodonaves', telefone: '99 99999-9999', nome_contato: 'Contato Rodo'},
-          {id: uuidv4(), nome: 'Braspress', telefone: '99 99999-9999', nome_contato: 'Contato Braspress'},
         ]
     })
 
     const user = await prisma.user.createMany({
       data: [
-        {id: uuidv4(), name: 'Rubens', email: 'rubens@oms.com.br', password: '$2b$10$oZXg8lVoADS2nu9LqctGwun5H3fW234aE1KoEe7YBcWjc8IECXQFW', privilege: '1'}
+        {id: uuidv4(), name: 'USER', email: 'user@teste.com.br', password: '$2b$10$oZXg8lVoADS2nu9LqctGwun5H3fW234aE1KoEe7YBcWjc8IECXQFW', privilege: '1'}
       ]
   })
 
